@@ -4,8 +4,15 @@ kind: Component
 metadata:
   name: checkpoint-mdm-policy
   description: Check Point MDM policy deployment
+  tags:
+    - checkpoint
+    - python
+    - automation
+  links:
+    - url: https://github.com/mcevansw/checkpoint-mdm-policy
+      title: GitHub Repository
 
 spec:
   type: service
-  owner: user:guest
+  owner: guests
   lifecycle: development
