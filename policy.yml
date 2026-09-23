@@ -1,22 +1,64 @@
+# ============================================================
+# Check Point Domain001 Policy Configuration
+# ============================================================
+
+# MDS domain
 domain: Domain001
 
-policy_package: Standard
+# ------------------------------------------------------------
+# Policy Package
+# ------------------------------------------------------------
+# IMPORTANT:
+# FW01 is currently associated with/using this policy package.
+# Do NOT change this to "Standard".
+policy_package: Domain001_Policypackage
+
+# Gateway to install the policy on
+target: FW01
+
+# ------------------------------------------------------------
+# Access Control Layer
+# ------------------------------------------------------------
+# This should match the actual Access Control layer returned
+# by "show-access-layers".
+#
+# If your layer is actually named "Network", leave this as-is.
+# If show-access-layers returns a different layer name, change it.
+layer: Domain001_Policypackage Network
+
+# ------------------------------------------------------------
+# Objects
+# ------------------------------------------------------------
 
 hosts:
-  - name: WEB01
-    ip: 10.10.10.20
+  - name: WEB02
+    ip: 10.10.10.30
 
 networks:
-  - name: NET_LAN
-    subnet: 10.10.10.0
+  - name: NET_LAN2
+    subnet: 10.10.11.0
     mask: 255.255.255.0
 
+# ------------------------------------------------------------
+# Access Control Rules
+# ------------------------------------------------------------
+
 rules:
+
+  # Allow HTTPS traffic from the LAN to WEB01
   - name: Allow-HTTPS
+    position: top
+    action: Accept
+
     source:
-      - NET_LAN
+      - NET_LAN2
+
     destination:
-      - WEB01
+      - WEB02
+
     service:
       - https
-    action: Accept
+
+# ------------------------------------------------------------
+# End of policy.yml
+# ------------------------------------------------------------
