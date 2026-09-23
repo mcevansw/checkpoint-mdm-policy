@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: checkpoint-mdm-policy
+  description: Check Point MDM policy automation project
+spec:
+  type: service
+  lifecycle: experimental
+  owner: user:guest
+``
